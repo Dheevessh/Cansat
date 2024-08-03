@@ -1,4 +1,4 @@
-const pressureCtx = document.getElementById('liveGraph').getContext('2d');
+const pressureCtx = document.getElementById('liveGraphPressure').getContext('2d');
 
 const pressureData = {
     labels: [], // Initial empty labels

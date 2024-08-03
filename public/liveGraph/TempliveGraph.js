@@ -1,6 +1,6 @@
-const ctx = document.getElementById('liveGraph').getContext('2d');
+const tempCtx = document.getElementById('liveGraphTemp').getContext('2d');
 
-const data = {
+const tempData = {
     labels: [], // Initial empty labels
     datasets: [{
         label: 'Temperature Live Data',
@@ -11,9 +11,9 @@ const data = {
     }]
 };
 
-const config = {
+const tempConfig = {
     type: 'line',
-    data: data,
+    data: tempData,
     options: {
         scales: {
             x: {
@@ -43,29 +43,29 @@ const config = {
     }
 };
 
-const chart = new Chart(ctx, config);
+const tempChart = new Chart(tempCtx, tempConfig);
 
 // Function to generate random data for demonstration
-function generateRandomData() {
+function generateRandomTempData() {
     return Math.random() * 100;
 }
 
 // Function to update the graph with new data
-function updateGraph() {
+function updateTempGraph() {
     const now = Date.now();
     const label = now;
-    const value = generateRandomData();
+    const value = generateRandomTempData();
 
-    if (data.labels.length >= 20) {
-        data.labels.shift(); // Remove the first label
-        data.datasets[0].data.shift(); // Remove the first data point
+    if (tempData.labels.length >= 20) {
+        tempData.labels.shift(); // Remove the first label
+        tempData.datasets[0].data.shift(); // Remove the first data point
     }
 
-    data.labels.push(label);
-    data.datasets[0].data.push({ x: label, y: value });
+    tempData.labels.push(label);
+    tempData.datasets[0].data.push({ x: label, y: value });
 
-    chart.update();
+    tempChart.update();
 }
 
 // Update the graph every second
-setInterval(updateGraph, 1000);
+setInterval(updateTempGraph, 1000);
