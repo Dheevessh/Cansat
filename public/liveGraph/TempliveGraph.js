@@ -1,4 +1,4 @@
-const ctx = document.getElementById('liveGraph').getContext('2d');
+const ctx = document.getElementById('TempliveGraph').getContext('2d');
 
 const data = {
     labels: [], // Initial empty labels
