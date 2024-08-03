@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Graphs</title>
+    <title>Temperature Live Graph</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -17,18 +16,15 @@
         canvas {
             width: 800px;  /* Set canvas width to 800 pixels */
             height: 600px; /* Set canvas height to 600 pixels */
-            margin: 10px;  /* Add some margin between graphs */
         }
     </style>
 </head>
 <body>
-    <canvas id="liveGraphTemp"></canvas>
-    <canvas id="liveGraphPressure"></canvas>
+    <canvas id="liveGraph"></canvas>
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Include the JavaScript files -->
+    <!-- Include the JavaScript file -->
     <script src="TempliveGraph.js"></script>
-    <script src="PressureLiveGraph.js"></script>
 </body>
 </html>
