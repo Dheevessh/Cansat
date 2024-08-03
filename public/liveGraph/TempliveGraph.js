@@ -9,7 +9,6 @@ const data = {
         data: [], // Initial empty data
         fill: true
     }]
-    
 };
 
 const config = {
@@ -22,7 +21,7 @@ const config = {
                 position: 'bottom',
                 title: {
                     display: true,
-                    text: 'Time1000'
+                    text: 'Time'
                 },
                 ticks: {
                     callback: function(value) {
