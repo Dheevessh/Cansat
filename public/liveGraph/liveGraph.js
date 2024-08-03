@@ -1,9 +1,9 @@
-const ctx = document.getElementById('TempliveGraph').getContext('2d');
+const ctx = document.getElementById('liveGraph').getContext('2d');
 
 const data = {
     labels: [], // Initial empty labels
     datasets: [{
-        label: 'Temperature',
+        label: 'Live Data',
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         data: [], // Initial empty data
