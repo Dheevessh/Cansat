@@ -1,19 +1,19 @@
-const ctx = document.getElementById('liveGraph').getContext('2d');
+const pressureCtx = document.getElementById('liveGraph').getContext('2d');
 
-const data = {
+const pressureData = {
     labels: [], // Initial empty labels
     datasets: [{
-        label: 'Temperature Live Data',
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        label: 'Pressure Live Data',
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
         data: [], // Initial empty data
         fill: true
     }]
 };
 
-const config = {
+const pressureConfig = {
     type: 'line',
-    data: data,
+    data: pressureData,
     options: {
         scales: {
             x: {
@@ -33,7 +33,7 @@ const config = {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Celsius'
+                    text: 'hPa'
                 }
             }
         },
@@ -43,29 +43,29 @@ const config = {
     }
 };
 
-const chart = new Chart(ctx, config);
+const pressureChart = new Chart(pressureCtx, pressureConfig);
 
 // Function to generate random data for demonstration
-function generateRandomData() {
-    return Math.random() * 100;
+function generateRandomPressureData() {
+    return Math.random() * 1000;
 }
 
 // Function to update the graph with new data
-function updateGraph() {
+function updatePressureGraph() {
     const now = Date.now();
     const label = now;
-    const value = generateRandomData();
+    const value = generateRandomPressureData();
 
-    if (data.labels.length >= 20) {
-        data.labels.shift(); // Remove the first label
-        data.datasets[0].data.shift(); // Remove the first data point
+    if (pressureData.labels.length >= 20) {
+        pressureData.labels.shift(); // Remove the first label
+        pressureData.datasets[0].data.shift(); // Remove the first data point
     }
 
-    data.labels.push(label);
-    data.datasets[0].data.push({ x: label, y: value });
+    pressureData.labels.push(label);
+    pressureData.datasets[0].data.push({ x: label, y: value });
 
-    chart.update();
+    pressureChart.update();
 }
 
 // Update the graph every second
-setInterval(updateGraph, 1000);
+setInterval(updatePressureGraph, 1000);
