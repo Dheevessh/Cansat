@@ -6,34 +6,21 @@
     <title>Live Graphs</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            position: relative; /* Allow absolute positioning of children */
             height: 100vh;
             background-color: #f0f0f0;
             margin: 0;
         }
-        .graph-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px; /* Add space between the graphs */
-        }
         canvas {
-            width: 400px;  /* Set canvas width */
-            height: 350px; /* Set canvas height */
+            position: absolute; /* Enable positioning */
         }
     </style>
 </head>
 <body>
-    <div class="graph-container">
-        <canvas id="liveGraphTemp"></canvas>
-        <canvas id="liveGraphPressure"></canvas>
-        <canvas id="liveGraphAltitude"></canvas>
-        <canvas id="liveGraphVelocity"></canvas>
-
-    </div>
+    <canvas id="liveGraphTemp" style="top: 10px; left: 10px; width: 20px; height: 15px;"></canvas>
+    <canvas id="liveGraphPressure" style="top: 10px; left: 220px; width: 30px; height: 20px;"></canvas>
+    <canvas id="liveGraphAltitude" style="top: 220px; left: 10px; width: 25px; height: 15px;"></canvas>
+    <canvas id="liveGraphVelocity" style="top: 220px; left: 270px; width: 30px; height: 20px;"></canvas>
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -42,6 +29,5 @@
     <script src="PressureLiveGraph.js"></script>
     <script src="AltitudeLiveGraph.js"></script>
     <script src="VelocityLiveGraph.js"></script>
-
 </body>
 </html>
