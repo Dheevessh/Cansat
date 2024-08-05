@@ -11,23 +11,119 @@
             background-color: #f0f0f0;
             margin: 0;
         }
-        canvas {
+        #descentGraph {
+            position: absolute; /* Enable positioning */
+            top: 50px; /* Initial top position */
+            left: 50px; /* Initial left position */
+            width: 700px; /* Initial width */
+            height: 500px; /* Initial height */
+            border: 1px solid black; /* Optional: Add border for better visualization */
+            resize: both; /* Allow resizing */
+            overflow: auto; /* Enable scrolling if content overflows */
+            cursor: move; /* Change cursor to move icon */
+        }
+        .canvas {
             position: absolute; /* Enable positioning */
         }
     </style>
 </head>
 <body>
-    <canvas id="liveGraphTemp" style="top: 10px; left: 10px; width: 200px; height: 150px;"></canvas>
-    <canvas id="liveGraphPressure" style="top: 10px; left: 900px; width: 200px; height: 150px;"></canvas>
-    <canvas id="liveGraphAltitude" style="top: 720px; left: 10px; width: 200px; height: 150px;"></canvas>
-    <canvas id="liveGraphVelocity" style="top: 720px; left: 900px; width: 200px; height: 150px;"></canvas>
+    <div id="descentGraph"></div>
+    <canvas id="liveGraphTemp" class="canvas" style="top: 50px; left: 900px; width: 200px; height: 150px;"></canvas>
+    <canvas id="liveGraphPressure" class="canvas" style="top: 50px; left: 1800px; width: 200px; height: 150px;"></canvas>
+    <canvas id="liveGraphAltitude" class="canvas" style="top: 720px; left: 10px; width: 200px; height: 150px;"></canvas>
+    <canvas id="liveGraphVelocity" class="canvas" style="top: 720px; left: 900px; width: 200px; height: 150px;"></canvas>
 
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include the JavaScript files -->
+    <script src="descentGraph.js"></script>
     <script src="TempliveGraph.js"></script>
     <script src="PressureLiveGraph.js"></script>
     <script src="AltitudeLiveGraph.js"></script>
     <script src="VelocityLiveGraph.js"></script>
+    <script>
+        // Function to generate linearly correlated data for the descent of a satellite
+        function generateDescentData(points = 100) {
+            const data = {
+                x: [],
+                y: [],
+                z: []
+            };
+
+            let x = 0, y = 0, z = 0;
+
+            for (let i = 0; i < points; i++) {
+                x += Math.random() * 10; // Increment X values
+                y += Math.random() * 10; // Increment Y values
+                z += Math.random() * 10; // Increment Z values
+
+                data.x.push(x); // Linearly correlated X values
+                data.y.push(y); // Linearly correlated Y values
+                data.z.push(z); // Linearly correlated Z values
+            }
+
+            return data;
+        }
+
+        // Generate initial descent data
+        const descentData = generateDescentData();
+
+        // Plot the 3D line graph
+        Plotly.newPlot('descentGraph', [{
+            x: descentData.x,
+            y: descentData.y,
+            z: descentData.z,
+            mode: 'lines',
+            line: {
+                width: 2,
+                color: 'rgb(255, 99, 132)' // Fixed color for the line
+            },
+            type: 'scatter3d'
+        }], {
+            title: 'Descent Path',
+            scene: {
+                xaxis: { title: 'X Axis' },
+                yaxis: { title: 'Y Axis' },
+                zaxis: { title: 'Z Axis' }
+            }
+        });
+
+        // Function to update the 3D line graph with new data
+        function updateDescentGraph() {
+            const newDescentData = generateDescentData();
+
+            Plotly.update('descentGraph', {
+                x: [newDescentData.x],
+                y: [newDescentData.y],
+                z: [newDescentData.z]
+            });
+        }
+
+        // Update the graph every second
+        setInterval(updateDescentGraph, 1000);
+
+        // Make the graph draggable
+        document.getElementById('descentGraph').addEventListener('mousedown', function(e) {
+            const descentGraph = document.getElementById('descentGraph');
+            let offsetX = e.clientX - descentGraph.getBoundingClientRect().left;
+            let offsetY = e.clientY - descentGraph.getBoundingClientRect().top;
+
+            function onMouseMove(e) {
+                descentGraph.style.left = e.clientX - offsetX + 'px';
+                descentGraph.style.top = e.clientY - offsetY + 'px';
+            }
+
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    </script>
 </body>
 </html>
